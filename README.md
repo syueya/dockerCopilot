@@ -25,7 +25,7 @@ Docker 构建配置位于 [`docker/`](docker/)：
 - `docker/docker-compose.local.yml`：本地开发 Compose 配置
 - `backend/start.sh`：容器启动脚本
 
-本仓库的 `latest` 分支由 `docker-public` 的 `dockercopilot-build.yml` 工作流检出，构建并推送到 `${DOCKER_USERNAME}/myown`，固定标签为 `dc-xia`，版本标签格式为 `dc-<version>`。构建产物临时写入 `build/docker/`，不会提交。
+镜像由本仓库的 [`.github/workflows/docker-build.yml`](.github/workflows/docker-build.yml) 构建并推送到 `${DOCKER_USERNAME}/myown`，固定标签为 `dc-xia`，版本标签格式为 `dc-<version>`。修改 `version` 并推送到 `latest` 会自动触发，也可在 Actions 页面手动运行；构建产物临时写入 `build/`，不会提交。程序自更新发布包另由 `release.yml` 处理，同样由 `version` 变更触发。
 
 生产 Compose 要求设置 `secretKey`，至少 8 位且不能为纯数字；默认只将管理端口绑定到 `127.0.0.1`。Compose 文件中的 `../data`、`../logs`、`../compose` 相对路径均相对于 `docker/` 目录，分别对应仓库根目录的持久化目录。
 
